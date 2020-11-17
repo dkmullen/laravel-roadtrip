@@ -41,4 +41,15 @@ Route::get('/elements', function () {
     return view('elements');
 });
 
-Route::get('/articles/{article}', [ArticlesController::class, 'show']);
+// Route::get('/articles-list', function () {
+//     $article = App\Models\Article::all();
+
+//     return view('articles-list', [
+//         'articles' => $article
+//     ]);
+// });
+
+Route::get('/articles', [ArticlesController::class, 'index']); // getAll
+ // btw, this has to be before the next one which is a wildcard, or thw wildcard will take prededence
+Route::get('/articles/create', [ArticlesController::class, 'create']);
+Route::get('/articles/{article}', [ArticlesController::class, 'show']); // getOne
