@@ -21,8 +21,46 @@ class ArticlesController extends Controller
         return view('articles.show', ['article' => $article]);
     }
 
+    public function store()
+    {
+        // die('Storing');
+        // dump(request()->all());
+        $article = new Article();
+        $article->title = request('title');
+        $article->excerpt = request('excerpt');
+        $article->body = request('body');
+
+        $article->save();
+
+        return redirect('/articles');
+    }
+
+    public function update($id)
+    {
+        // die('Storing');
+        // dump(request()->all());
+        $article = Article::find($id);
+        $article->title = request('title');
+        $article->excerpt = request('excerpt');
+        $article->body = request('body');
+
+        $article->save();
+
+        return redirect('/articles/' . $article->id);
+    }
+
+
+    public function edit($id)
+    {
+        // die('editing');
+        $article = Article::find($id);
+
+        return view('articles.edit', ['article' => $article]);
+    }
+
     public function create()
     {
         return view('articles.create');
     }
+
 }

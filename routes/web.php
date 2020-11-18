@@ -52,4 +52,7 @@ Route::get('/elements', function () {
 Route::get('/articles', [ArticlesController::class, 'index']); // getAll
  // btw, this has to be before the next one which is a wildcard, or thw wildcard will take prededence
 Route::get('/articles/create', [ArticlesController::class, 'create']);
+Route::post('/articles', [ArticlesController::class, 'store']);
 Route::get('/articles/{article}', [ArticlesController::class, 'show']); // getOne
+Route::get('/articles/{article}/edit', [ArticlesController::class, 'edit']);
+Route::put('/articles/{article}', [ArticlesController::class, 'update']);
