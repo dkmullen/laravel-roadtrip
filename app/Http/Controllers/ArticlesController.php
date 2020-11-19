@@ -21,8 +21,19 @@ class ArticlesController extends Controller
         return view('articles.show', ['article' => $article]);
     }
 
+    public function create()
+    {
+        return view('articles.create');
+    }
+
     public function store()
     {
+        // Needed on edit too (next lesson)
+        request()->validate([
+            'title' => ['required', 'min:3', 'max:255'],
+            'excerpt' => 'required',
+            'body' => 'required'
+        ]);
         // die('Storing');
         // dump(request()->all());
         $article = new Article();
@@ -58,9 +69,6 @@ class ArticlesController extends Controller
         return view('articles.edit', ['article' => $article]);
     }
 
-    public function create()
-    {
-        return view('articles.create');
-    }
+
 
 }
