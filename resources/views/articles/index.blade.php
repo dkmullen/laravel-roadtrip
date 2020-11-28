@@ -11,7 +11,8 @@
             <div class="content">
             @foreach ($articles as $article)
             <div class="article-wrapper">
-                <h3><a href="/articles/{{ $article->id}}">{{ $article->title }}</a></h3>
+            <!-- using a named route -->
+                <h3><a href="{{ route('articles.show', $article)}}">{{ $article->title }}</a></h3>
                 <p>{{ $article->updated_at }}</p>
                 <p><strong>{{ $article->excerpt}}</strong></p>
                 <div>{{ $article->body }}</div>

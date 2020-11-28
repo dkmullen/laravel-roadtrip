@@ -40,4 +40,18 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Return all articles by this user
+    public function articles() 
+    {
+      //Eloquent for: select * from articles where user_id = <this user's id>
+      return $this->hasMany(Article::class); 
+    }
 }
+// Get the user's articles like this
+// $user = User::find(1);
+// $user->articles
+
+// Common relationship expressions: hasOne, hasMany, belongsTo
+// a user hasOne profile, hasMany artcles, comments
+// a comment belongs to a User

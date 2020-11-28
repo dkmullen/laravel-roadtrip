@@ -10,13 +10,13 @@ class ArticlesController extends Controller
     public function index() 
     {
         $articles = Article::latest()->get();
-
         return view('articles.index', ['articles' => $articles]);
     }
 
-    public function show($id) 
+    // public function show($id)
+    public function show(Article $article)  // A shorthand, replacing the lines above and below
     {
-        $article = Article::find($id);
+        // $article = Article::findOrFail($id);
 
         return view('articles.show', ['article' => $article]);
     }
@@ -29,46 +29,60 @@ class ArticlesController extends Controller
     public function store()
     {
         // Needed on edit too (next lesson)
-        request()->validate([
-            'title' => ['required', 'min:3', 'max:255'],
-            'excerpt' => 'required',
-            'body' => 'required'
-        ]);
+        Article::create($this->validateArticle());
+        // [
+        //     'title' => ['required', 'min:3', 'max:255'],
+        //     'excerpt' => 'required',
+        //     'body' => 'required'
+        // ]));
         // die('Storing');
         // dump(request()->all());
-        $article = new Article();
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
+        // $article = new Article();
+        // $article->title = request('title');
+        // $article->excerpt = request('excerpt');
+        // $article->body = request('body');
 
-        $article->save();
+        // $article->save();
 
         return redirect('/articles');
     }
 
-    public function update($id)
+    public function update(Article $article) // the longer way
     {
-        // die('Storing');
+        // $article = Article::findOrFail($id);
+        $article->update($this->validateArticle());
+
+
+      // die('Storing');
         // dump(request()->all());
-        $article = Article::find($id);
-        $article->title = request('title');
-        $article->excerpt = request('excerpt');
-        $article->body = request('body');
+        // $article->title = request('title');
+        // $article->excerpt = request('excerpt');
+        // $article->body = request('body');
 
-        $article->save();
+        // $article->save();
 
-        return redirect('/articles/' . $article->id);
+        // return redirect(route('articles.show', $article)); using a named route
+        // Or better yet, using a simple method we add to the aritcle's model
+        return redirect($article->path());
     }
 
 
-    public function edit($id)
+    public function edit(Article $article)
     {
         // die('editing');
-        $article = Article::find($id);
+        // $article = Article::findOrFail($id);
 
         return view('articles.edit', ['article' => $article]);
     }
 
+    protected function validateArticle()
+    {
+      return request()-> validate([
+        'title' => ['required', 'min:3', 'max:255'],
+        'excerpt' => 'required',
+        'body' => 'required'
+      ]);
+    }
 
 
 }
