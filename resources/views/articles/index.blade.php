@@ -9,7 +9,7 @@
                 <p>01.01.2017</p>
             </header>
             <div class="content">
-            @foreach ($articles as $article)
+            @forelse ($articles as $article)
             <div class="article-wrapper">
             <!-- using a named route -->
                 <h3><a href="{{ route('articles.show', $article)}}">{{ $article->title }}</a></h3>
@@ -18,7 +18,8 @@
                 <div>{{ $article->body }}</div>
             </div>
             <hr>
-            @endforeach
+            @empty <p>No relevent articles yet.</p>
+            @endforelse
     </div>
         </article>
     </div>

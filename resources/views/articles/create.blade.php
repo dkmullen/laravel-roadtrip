@@ -53,6 +53,21 @@
                     @enderror
                 </div>
 
+                <div class="field">
+                    <label class="label" for="body">Tags</label>
+
+                    <div class="select is-multiple control">
+                        <select name="tags[]" multiple>
+                          @foreach ($tags as $tag)
+                            <option value="{{ $tag->id }}">{{ $tag->name }}</option>
+                          @endforeach
+                        </select>
+                    </div>
+                    @error('tags')
+                        <p class="help is-danger">{{ $message }}</p>
+                    @enderror
+                </div>
+
                 <div class="field is-grouped">
 
                     <div class="control">

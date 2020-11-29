@@ -13,6 +13,9 @@
                 <div class="content">
 
                 <p>{{ $article->body }}</p>
+                @foreach ($article->tags as $tag)
+                  <a href="/articles?tag={{ $tag->name }}">{{ $tag->name }}</a>
+                @endforeach
                 </div>
             </article>
         </div>
